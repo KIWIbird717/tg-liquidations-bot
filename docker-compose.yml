@@ -1,0 +1,11 @@
+version: "3.8"
+
+services:
+  liquidation-bot:
+    container_name: liquidation-bot
+    build: .
+    restart: always #change if you don't want your container restarting
+    env_file:
+      - ./.env
+    environment:
+      - NODE_ENV=production
