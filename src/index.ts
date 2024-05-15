@@ -275,14 +275,21 @@ const handleLiquidationData = (data: LiquidationType, ctx: any) => {
   if (data.side === "BUY") {
     CoinsList.set(data.symbol, {
       ...coin,
-      liquidations: { ...coin.liquidations, short: coin.liquidations?.short ?? 0 + liquidationQty },
+      liquidations: {
+        ...coin.liquidations,
+        short: coin.liquidations?.short + liquidationQty ?? liquidationQty,
+      },
     });
   } else {
     CoinsList.set(data.symbol, {
       ...coin,
-      liquidations: { ...coin.liquidations, long: coin.liquidations?.long ?? 0 + liquidationQty },
+      liquidations: {
+        ...coin.liquidations,
+        long: coin.liquidations?.long + liquidationQty ?? liquidationQty,
+      },
     });
   }
+  console.log("CoinsList:", JSON.stringify(CoinsList, null, 2));
 };
 
 // Функция для получения количества секунд из строки времени в формате "hh:mm:ss"
